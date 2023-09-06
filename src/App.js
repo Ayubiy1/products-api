@@ -283,7 +283,7 @@ const App = () => {
             <div style={{ height: "300px" }}>
               <img
                 src={info?.images[0]}
-                className="w-[100%] rounded-lg h-100 "
+                className="w-[100%] h-[300px] object-contain rounded-lg "
                 alt="..."
               />
             </div>
