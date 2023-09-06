@@ -45,7 +45,9 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenK, setIsModalOpenK] = useState(false);
+  const [isModalOpenI, setIsModalOpenI] = useState(false);
   const [buy, setBuy] = useState([]);
+  const [info, setInfo] = useState(null);
   const [filterC, setFilter] = useState("");
 
   const showModal = () => {
@@ -66,6 +68,16 @@ const App = () => {
   };
   const handleCancelK = () => {
     setIsModalOpenK(false);
+  };
+
+  const showModalI = () => {
+    setIsModalOpenI(true);
+  };
+  const handleOkI = () => {
+    setIsModalOpenI(false);
+  };
+  const handleCancelI = () => {
+    setIsModalOpenI(false);
   };
 
   useEffect(() => {
@@ -119,7 +131,14 @@ const App = () => {
       key: "actions",
       render: (value, row) => (
         <>
-          <Button type="dashed">
+          <Button
+            type="dashed"
+            onClick={() => {
+              showModalI();
+              handleCancel();
+              setInfo(row);
+            }}
+          >
             <InfoCircleOutlined />
           </Button>
         </>
@@ -199,6 +218,7 @@ const App = () => {
           }}
         />
       </Modal>
+
       <Modal
         title="Filter"
         open={isModalOpenK}
@@ -250,6 +270,35 @@ const App = () => {
           </Form.Item>
         </Form>
       </Modal>
+
+      <Modal
+        title="Info"
+        open={isModalOpenI}
+        onOk={handleOkI}
+        onCancel={handleCancelI}
+        footer={false}
+      >
+        <div className="col-4 mt-4 rounded-3">
+          <div className="card" style={{ width: "100%", height: "100%" }}>
+            <div style={{ height: "300px" }}>
+              <img
+                src={info?.images[0]}
+                className="w-[100%] rounded-lg h-100 "
+                alt="..."
+              />
+            </div>
+            <div className="card-body">
+              <h5 className="card-title">{info?.title}</h5>
+            </div>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item ">Name: {info?.brand}</li>
+              <li className="list-group-item">Category: {info?.category}</li>
+              <li className="list-group-item">Price: {info?.price}$</li>
+            </ul>
+          </div>
+        </div>
+      </Modal>
+
       <div className="flex itemscenter my-12 justify-center h-[100vh]">
         <div
           className="border-2 w-[400px] h[555px] p-3 rounded-lg shadow-gray-500"
